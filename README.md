@@ -357,11 +357,8 @@ $$L = (\frac{1}{\sqrt{2}}L_{pre}-\sqrt{2}L_{ce})^2+\frac{1}{2} L_{pre}^2$$
 `Gridman` 一共有四个尺寸 `Mini`, `Small`, `Medium`, `Large`, 详细配置如下
 
 
-Embed_Dim	Sensor层数	Brain层数	Actor层数	状态/参数量
-Gridman_Mini	384	3	9	3	0.37/38.14M
-Gridman_Small	512	4	12	4	0.66/85.21M
-Gridman_Medium	768	6	24	4	1.47/297.94M
-Gridman_Large	1024	8	36	6	2.62/755.76M
+<img width="1255" height="525" alt="image" src="https://github.com/user-attachments/assets/368ddd36-b859-470b-856a-323c6fe255f6" />
+
 
 在全量训练 (指 BPTT 数等于清醒步数, 在这里为 $4$) 的情况下, `Gridman_Mini` 可在 `3080Ti` 上进行训练, `Gridman_Small` 可以在 `5090` 上完成训练. 这里主要是显存占用较高, 在资源受限的情况下可选择减少 BPTT 数. 尽管为 $1$ 也可以进行正常训练, 但建议至少保证 BPTT 数大于等于 $2$, 更符合 `Ouro` 状态传递的哲学.
 
