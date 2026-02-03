@@ -338,11 +338,13 @@ $$L = (\frac{1}{\sqrt{2}}L_{pre}-\sqrt{2}L_{ce})^2+\frac{1}{2} L_{pre}^2$$
 
 下面是训练期间 $L_{ce}$ 和 $L_{pre}$ 的图像 (使用配置 `Gridman_Small`, 关于配置详见下文).
 
-[图1]
+<img width="1400" height="600" alt="image" src="https://github.com/user-attachments/assets/28de9fbe-7bdb-4efe-b0bb-4050d172696f" />
+
 
 可以看到几乎在很早期, 模型就开始学会如何困惑了, 这有点反直觉. 理论上似乎需要模型对数据有一定掌握之后才可能学会评估这种不确定度, 现在看来并不是这样. 困惑或许是一种更本能的东西, 毕竟婴儿也会困惑.
 
-[图2]
+<img width="1400" height="600" alt="image" src="https://github.com/user-attachments/assets/458f22d0-27fc-4ed9-b67a-748100b1fcb5" />
+
 
 在后期模型几乎能完全准确的预测交叉熵. 但此时生成的东西依然狗屁不通. 还有一个值得注意的现象, $L$ 随步数的变化趋势呈现显著的周期性, 作者本人暂时无法解释这个现象, 怀疑是和长期状态 `Mem` 的容量有关. 
 
@@ -354,7 +356,12 @@ $$L = (\frac{1}{\sqrt{2}}L_{pre}-\sqrt{2}L_{ce})^2+\frac{1}{2} L_{pre}^2$$
 
 `Gridman` 一共有四个尺寸 `Mini`, `Small`, `Medium`, `Large`, 详细配置如下
 
-[配置表]
+
+Embed_Dim	Sensor层数	Brain层数	Actor层数	状态/参数量
+Gridman_Mini	384	3	9	3	0.37/38.14M
+Gridman_Small	512	4	12	4	0.66/85.21M
+Gridman_Medium	768	6	24	4	1.47/297.94M
+Gridman_Large	1024	8	36	6	2.62/755.76M
 
 在全量训练 (指 BPTT 数等于清醒步数, 在这里为 $4$) 的情况下, `Gridman_Mini` 可在 `3080Ti` 上进行训练, `Gridman_Small` 可以在 `5090` 上完成训练. 这里主要是显存占用较高, 在资源受限的情况下可选择减少 BPTT 数. 尽管为 $1$ 也可以进行正常训练, 但建议至少保证 BPTT 数大于等于 $2$, 更符合 `Ouro` 状态传递的哲学.
 
